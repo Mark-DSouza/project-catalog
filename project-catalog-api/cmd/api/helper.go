@@ -3,6 +3,9 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 func (app *application) writeJSON(w http.ResponseWriter, status int, data any, headers http.Header) error {
@@ -22,6 +25,11 @@ func (app *application) writeJSON(w http.ResponseWriter, status int, data any, h
 	w.Write(js)
 
 	return nil
+}
+
+func (app *application) readIDParam(r *http.Request) (int64, error) {
+	idParam := httprouter.ParamsFromContext(r.Context()).ByName("id")
+	return strconv.ParseInt(idParam, 10, 64)
 }
 
 type envelope map[string]any

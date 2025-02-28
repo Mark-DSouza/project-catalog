@@ -1,0 +1,8 @@
+package data
+
+const (
+	PLANNING    = "PLANNING"
+	IN_PROGRESS = "IN-PROGRESS"
+	COMPLETED   = "COMPLETED"
+	ARCHIVED    = "ARCHIVED"
+)
