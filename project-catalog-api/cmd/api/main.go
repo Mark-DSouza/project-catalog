@@ -9,9 +9,16 @@ import (
 	"time"
 )
 
+var version = "1.0.0"
+
 type config struct {
 	port int
 	env  string
+}
+
+type application struct {
+	config config
+	logger *slog.Logger
 }
 
 func main() {
@@ -22,11 +29,14 @@ func main() {
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-	mux := http.NewServeMux()
+	app := &application{
+		config: cfg,
+		logger: logger,
+	}
 
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", cfg.port),
-		Handler:      mux,
+		Handler:      app.routes(),
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
