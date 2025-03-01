@@ -23,7 +23,7 @@ func ValidProject(project *Project, v *validator.Validator) {
 	v.Check(validator.MaxChar(project.Title, 100), "title", "this field must be at most 100")
 
 	v.Check(validator.NotBlank(project.Description), "description", "this field cannot be blank")
-	v.Check(validator.MaxChar(project.Description, 10), "description", "this field must be at least 10 characters long")
+	v.Check(validator.MinChar(project.Description, 10), "description", "this field must be at least 10 characters long")
 	v.Check(validator.MaxChar(project.Description, 1000), "description", "this field must be at most 1000 characters long")
 
 	v.Check(validator.NotBlank(project.LifeStage), "lifestage", "this field cannot be blank")
